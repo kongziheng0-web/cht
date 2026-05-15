@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>家庭点菜系统</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+  <div class="header">
+    <h1 id="title">今日吃什么 🍽</h1>
+  </div>
+
+  <input id="search" placeholder="搜索菜品..." oninput="searchFood()"/>
+
+  <div class="tabs">
+    <button onclick="filter('全部')">全部</button>
+    <button onclick="filter('主食')">主食</button>
+    <button onclick="filter('热菜')">热菜</button>
+    <button onclick="filter('凉菜')">凉菜</button>
+  </div>
+
+  <div id="list" class="list"></div>
+
+</div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
