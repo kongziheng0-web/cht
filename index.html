@@ -1,30 +1,99 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>家庭点菜系统</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>我的厨房</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 </head>
 
 <body>
 
 <div class="app">
 
-  <div class="header">
-    <h1 id="title">今日吃什么 🍽</h1>
+<!-- 顶部Banner -->
+<div class="banner" id="banner">
+  <input type="file" id="bannerUpload" hidden onchange="setBanner(event)">
+  <div class="banner-title" onclick="document.getElementById('bannerUpload').click()">
+    我的厨房
+  </div>
+</div>
+
+<!-- TAB -->
+<div class="tabs">
+  <div onclick="switchTab('all')">全部</div>
+  <div onclick="switchTab('主食')">主食</div>
+  <div onclick="switchTab('热菜')">热菜</div>
+  <div onclick="switchTab('凉菜')">凉菜</div>
+  <div onclick="switchTab('汤粥')">汤粥</div>
+  <div onclick="switchTab('饮料')">饮料</div>
+</div>
+
+<!-- 菜品 -->
+<div id="foodList" class="list"></div>
+
+<!-- 菜单 -->
+<div id="menuPage" class="page">
+  <h2>今日菜单</h2>
+  <div id="menuList"></div>
+
+  <button onclick="clearMenu()">清空菜单</button>
+  <button onclick="makePlan()">做饭顺序</button>
+  <button onclick="shoppingList()">买菜清单</button>
+</div>
+
+<!-- 我的 -->
+<div id="minePage" class="page">
+
+  <div class="avatar-box">
+    <input type="file" id="avatarUpload" hidden onchange="setAvatar(event)">
+    <img id="avatar" onclick="document.getElementById('avatarUpload').click()">
+    <p id="systemNameText">我的厨房</p>
   </div>
 
-  <input id="search" placeholder="搜索菜品..." oninput="searchFood()"/>
+  <button onclick="openAdmin()">厨房管理后台</button>
+  <button onclick="openSetting()">系统设置</button>
 
-  <div class="tabs">
-    <button onclick="filter('全部')">全部</button>
-    <button onclick="filter('主食')">主食</button>
-    <button onclick="filter('热菜')">热菜</button>
-    <button onclick="filter('凉菜')">凉菜</button>
-  </div>
+</div>
 
-  <div id="list" class="list"></div>
+<!-- 菜品详情 -->
+<div id="detailPage" class="page">
+  <div id="detail"></div>
+  <button onclick="addToMenu()">加入菜单</button>
+  <button onclick="closeDetail()">关闭</button>
+</div>
+
+<!-- 管理后台 -->
+<div id="adminPage" class="page">
+
+<h2>厨房管理后台</h2>
+
+<input id="aiInput" placeholder="输入菜名">
+<button onclick="aiGenerate()">AI生成菜谱</button>
+
+<input id="name">
+<input id="category">
+<input id="time">
+<textarea id="ingredients"></textarea>
+<textarea id="steps"></textarea>
+
+<button onclick="addFood()">添加菜品</button>
+
+</div>
+
+<!-- 设置 -->
+<div id="settingPage" class="page">
+
+<h2>系统设置</h2>
+
+<input id="setName" placeholder="修改系统名称">
+<button onclick="saveSetting()">保存</button>
+
+</div>
 
 </div>
 
